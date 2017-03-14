@@ -1,11 +1,12 @@
 package com.carino.luis.datastructures.linked_list
 
 /**
+ * Singly linked list impl.
  * Created by luiscarino on 3/3/17.
  */
-class LinkedList(var head: Element? = null) {
+class LinkedList<T>(var head: Element<T>? = null) {
 
-    fun append(newElement: Element) {
+    fun append(newElement: Element<T>) {
         if (head == null) {
             head = newElement
         } else {
@@ -17,7 +18,7 @@ class LinkedList(var head: Element? = null) {
         }
     }
 
-    fun getAt(position: Int): Element? {
+    fun getAt(position: Int): Element<T>? {
         var current = head
         if (position == 1) {
             return current
@@ -38,15 +39,15 @@ class LinkedList(var head: Element? = null) {
         }
     }
 
-    fun insert(newElement: Element, position: Int) {
+    fun insert(newElement: Element<T>, position: Int) {
         val current = head
         if (position == 1) {
             head = newElement
             newElement.next = current
         } else {
             val finalPosition = getAt(position)
-            if(finalPosition?.next != null) {
-                val initialPosition = getAt(position -1)
+            if (finalPosition?.next != null) {
+                val initialPosition = getAt(position - 1)
                 initialPosition?.next = newElement
                 newElement.next = finalPosition
             }
@@ -54,23 +55,36 @@ class LinkedList(var head: Element? = null) {
     }
 
 
-    fun delete(value:Int) {
+    fun delete(value: T) {
         var current = head
-        var previous: Element? = null
+        var previous: Element<T>? = null
         while (value != current?.data && current?.next != null) {
             previous = current!!
             current = current.next
         }
 
-        if(current?.data == value) {
-            if(previous != null) {
+        if (current?.data == value) {
+            if (previous != null) {
                 previous.next = current?.next
             } else {
                 head = current?.next
             }
         }
+    }
 
+    fun addFirst(newElement: Element<T>) {
+        newElement.next = head
+        head = newElement
+    }
 
+    fun deleteFirst() : Element<T>? {
+        if (head == null) {
+            return null
+        } else {
+            val current = head
+            head = current?.next
+            return current
+        }
     }
 
 }

@@ -10,14 +10,15 @@ import kotlin.test.assertNotNull
  * Created by luiscarino on 3/4/17.
  */
 class LinkedListTestKotlin {
+    val e1 = Element(1)
+    val e2 = Element(2)
+    val e3 = Element(3)
+    val e4 = Element(4)
+    val e5 = Element(5)
 
     @Test
     fun testLinkedList(){
-        val e1 = Element(1)
-        val e2 = Element(2)
-        val e3 = Element(3)
-        val e4 = Element(4)
-        val e5 = Element(5)
+
         var myList = LinkedList(e1)
         myList.append(e2)
         myList.append(e3)
@@ -44,9 +45,35 @@ class LinkedListTestKotlin {
 
         myList.delete(1)
         assertEquals(myList.getAt(3), e2)
+    }
 
+    @Test
+    fun testAddFirst() {
+        var list  = LinkedList<Int>()
 
+        list.addFirst(e4)
+        list.addFirst(e5)
+        list.addFirst(e2)
 
+        assertEquals(list.getAt(1), e2)
+        assertEquals(list.head, e2)
+    }
 
+    @Test
+    fun testDeleteFirst() {
+
+        var list  = LinkedList<Int>()
+
+        list.addFirst(e4)
+        list.addFirst(e5)
+        list.addFirst(e2)
+
+        assertEquals(list.getAt(1), e2)
+        assertEquals(list.head, e2)
+
+        assertEquals(list.deleteFirst(), e2)
+        assertEquals(list.deleteFirst(), e5)
+        assertEquals(list.deleteFirst(), e4)
+        assertEquals(list.head, null)
     }
 }
